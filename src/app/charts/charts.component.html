@@ -1,0 +1,29 @@
+<div class="container-fluid" >
+	<h3 style="color: white;">{{selectedStock.description}}</h3>
+	<mat-tab-group backgroundColor="primary" (selectedIndexChange)="myTabSelectedIndexChange($event)" >
+	  <mat-tab label="1D"> 
+	  	<div id="divChart" class="container-fluid" >
+	  	<mat-spinner *ngIf="isLoading" ></mat-spinner>
+			<canvas id="myChart1" ></canvas>
+		</div>
+	  </mat-tab>
+	  <mat-tab label="5D">
+	  	<div id="divChart" >
+	  	<mat-spinner *ngIf="isLoading" ></mat-spinner>
+			<canvas id="myChart2" ></canvas>
+		</div>
+	  </mat-tab>
+	  <mat-tab label="Month">
+	  	<div id="divChart" >
+	  	<mat-spinner *ngIf="isLoading" ></mat-spinner>
+			<canvas id="myChart3" ></canvas>
+		</div>
+	  </mat-tab>
+	  <mat-tab label="Year">
+	  	<div id="divChart" >
+	  	<mat-spinner *ngIf="isLoading" ></mat-spinner>
+			<canvas id="myChart4" ></canvas>
+		</div>
+	  </mat-tab>
+	</mat-tab-group>
+</div>	

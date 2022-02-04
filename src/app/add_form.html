@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>Hi, Manage Your Stock List</h1>
+<div mat-dialog-content>
+  <p></p>
+   <mat-form-field class="example-chip-list">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let interest of selectedItems" 
+                [selectable]="selectable"
+                [removable]="removable" 
+                (remove)="removeStock(interest)" 
+                color="primary" selected>
+                {{interest.symbol}}
+        <mat-icon matChipRemove *ngIf="removable" (click)="removeStock(interest)">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Select Your Business Interest"
+              [matChipInputFor]="chipList"
+              (input)="callSearch($event.target.value)"
+              [matAutocomplete]="auto"
+              [(value)]="selectedSB" />            
+    </mat-chip-list>
+  </mat-form-field>
+  <mat-autocomplete #auto="matAutocomplete">  
+    <mat-option  *ngFor="let result of results"  
+                  (onSelectionChange)="addStock(result)" >          
+                  {{ result.symbol }}                             
+    </mat-option>                
+  </mat-autocomplete>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="warn" cdkFocusInitial (click)="onNoClick()">close</button>
+</div>
