@@ -31,7 +31,7 @@
       <mat-card>
         <mat-card-title>Your List</mat-card-title>  
       </mat-card>
-      <div *ngIf="l_p.length > 0" >
+      <div *ngIf="l_p.length != 0" >
         <mat-card *ngFor="let stock of stock_list; let i = index" id="stocks" >
           <mat-card-title style="color: white;" (mouseenter)="selectForChart(stock)">{{stock.symbol}}
           

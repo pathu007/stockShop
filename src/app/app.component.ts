@@ -24,10 +24,11 @@ export class AppComponent {
   							public _store: LocalStorageService,
   							public _web: WebsocketsService		) {  }
   temp: any;
+  id: any;
   l_p :any[] = [];
   stock_list: any[] = [];
   chart_stock: any;
-  subject: any;
+  subject: any[] = [];
   //socket_packet: any[] = [];
   socket_packets = new Map<string, any>();
 
@@ -37,6 +38,7 @@ export class AppComponent {
 		if(this.stock_list == null)
 		{
 			this.stock_list = [];
+			this.l_p = [];
 		}
 		else
 		{
@@ -45,16 +47,20 @@ export class AppComponent {
 			
 		}
 		
-		const subject = new W3CWebSocket('wss://ws.finnhub.io?token=c7qf3kaad3i9it6670ng');
+		
     //var subscribe = {'type':'subscribe', 'symbol': "BINANCE:BTCUSDT"};
-    this.stock_list.forEach((obj:any,index:any) => {
+    
     // 		this.ManageSockets(obj.symbol,1);
-    		let subscribe = {'type':'subscribe', 'symbol': "BINANCE:BTCUSDT"};
-
-    		subject.onopen = function() {
+    		const subject = new W3CWebSocket('wss://ws.finnhub.io?token=c7qf3kaad3i9it6670ng');
+    		
+    		
+    		subject.onopen = () => {
     			console.log('WebSocket Client Connected');
-    			console.log(subscribe);
-    			subject.send(JSON.stringify(subscribe));
+    			this.stock_list.forEach((obj:any,index:any) => {
+    				let subscribe = {'type':'subscribe', 'symbol': obj.symbol };		
+    				console.log(subscribe);
+    				subject.send(JSON.stringify(subscribe));
+    			});
     		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
 				};
       
@@ -70,8 +76,11 @@ export class AppComponent {
 
 
       	
-
-    })
+      	this.updatePrices();
+      	this.id = setInterval(() => {
+    								this.updatePrices(); 
+  								}, 5000);
+    
 
 
 
@@ -90,6 +99,19 @@ export class AppComponent {
 		
 			
 	}	
+
+	updatePrices()
+	{
+		console.log("e");
+		this.stock_list.forEach((obj:any,index:any) => {
+			let key = this.socket_packets.get(obj.symbol);
+			if(key != null)
+			{
+				this.l_p[index].c = key.p;
+			}
+		})
+
+	}
 
 	getFixed()
 	{
