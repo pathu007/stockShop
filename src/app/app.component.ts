@@ -131,6 +131,12 @@ export class AppComponent {
     });
   }
 
+  ngOnDestroy(): void {
+  	if (this.id) {
+    	clearInterval(this.id);
+  	}
+  }
+
   ManageSockets(symbol:string,action:number)
   {
   
