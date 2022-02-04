@@ -28,7 +28,8 @@ export class AppComponent {
   stock_list: any[] = [];
   chart_stock: any;
   subject: any;
-  socket_packet: any[] = [];
+  //socket_packet: any[] = [];
+  socket_packets = new Map<string, any>();
 
 	ngOnInit()
 	{
@@ -57,16 +58,22 @@ export class AppComponent {
     		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
 				};
       
-    		subject.onmessage = function(e:any) {
+    		subject.onmessage = (e:any) => {
+    			console.log(e);
       		let temp = JSON.parse(e.data);
       		let i = temp["data"][0].s;
-
-      		console.log(i);
+      		
+      		this.socket_packets.set(i,temp["data"][0])
+      		console.log(this.socket_packets);
       		//this.socket_packet.append(temp["data"][0]);
       	}
-      	console.log(this.socket_packet);
+
+
+      	
 
     })
+
+
 
 
 
@@ -168,7 +175,7 @@ export class DialogOverviewExampleDialog {
   selectedItems : any[] = [];
   selectedSB : any = "";
   l_p : any[] = [];
-  
+
   constructor(	public _gs: GeneralServicesService, 
   							@Inject(MAT_DIALOG_DATA) public data: any,
     						public dialogRef: MatDialogRef<DialogOverviewExampleDialog>  ) {}
