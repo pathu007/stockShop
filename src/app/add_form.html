@@ -11,7 +11,7 @@
                 {{interest.symbol}}
         <mat-icon matChipRemove *ngIf="removable" (click)="removeStock(interest)">cancel</mat-icon>
       </mat-chip>
-      <input placeholder="Select Your Business Interest"
+      <input placeholder="Find Stock Symbol here"
               [matChipInputFor]="chipList"
               (input)="callSearch($event.target.value)"
               [matAutocomplete]="auto"
