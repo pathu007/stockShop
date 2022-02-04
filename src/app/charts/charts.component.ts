@@ -33,6 +33,8 @@ export class ChartsComponent implements OnInit {
       "to" : "1631627048"
     };
 
+    
+
     this._gs.selectedStock
             .subscribe(data => { 
                                   if(data != null){
