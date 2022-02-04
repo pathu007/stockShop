@@ -50,29 +50,8 @@ export class AppComponent {
 		
     //var subscribe = {'type':'subscribe', 'symbol': "BINANCE:BTCUSDT"};
     
-    // 		this.ManageSockets(obj.symbol,1);
-    		const subject = new W3CWebSocket('wss://ws.finnhub.io?token=c7qf3kaad3i9it6670ng');
+    		this.ManageSockets("",0);
     		
-    		
-    		subject.onopen = () => {
-    			console.log('WebSocket Client Connected');
-    			this.stock_list.forEach((obj:any,index:any) => {
-    				let subscribe = {'type':'subscribe', 'symbol': obj.symbol };		
-    				console.log(subscribe);
-    				subject.send(JSON.stringify(subscribe));
-    			});
-    		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
-				};
-      
-    		subject.onmessage = (e:any) => {
-    			console.log(e);
-      		let temp = JSON.parse(e.data);
-      		let i = temp["data"][0].s;
-      		
-      		this.socket_packets.set(i,temp["data"][0])
-      		console.log(this.socket_packets);
-      		//this.socket_packet.append(temp["data"][0]);
-      	}
 
 
       	
@@ -140,37 +119,78 @@ export class AppComponent {
       console.log('The dialog was closed');
       console.log(result);
      	let temp = this._store.retrieve('#List');
-     	temp.forEach((obj:any) => this.ManageSockets(obj.symbol,0))
+     	this.ManageSockets("",4);
       this.stock_list = result;
       this.getFixed();
-      this.stock_list.forEach((obj:any) => this.ManageSockets(obj.symbol,1))
+      this.ManageSockets("",0);
       this._store.store('#List', this.stock_list);
     });
   }
 
   ManageSockets(symbol:string,action:number)
   {
-  // 	if(action == 1){
-  // 		var subscribe = {'type':'subscribe', 'symbol': "BINANCE:BTCUSDT"};	
-  // 	}
-  // 	else
-  // 	{
-  // 		var subscribe = {'type':'unsubscribe', 'symbol': symbol};
-  // 	}
-  	
-
-  //   this.subject.onopen = function() {
-  //   		console.log('WebSocket Client Connected');
-  //   		console.log(subscribe);
-  //   		this.subject.send(JSON.stringify(subscribe));
-  //   		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
-		// };
-      
-  //   this.subject.onmessage = function(e:any) {
-  //     	let temp = JSON.parse(e.data);
-  //     	// console.log(temp);
-  //     	console.log(temp);
-  //   }
+  
+  	const subject = new W3CWebSocket('wss://ws.finnhub.io?token=c7qf3kaad3i9it6670ng');
+	    		
+	  	if(action==0){  		
+	    		subject.onopen = () => {
+	    			console.log('WebSocket Client Connected');
+	    			this.stock_list.forEach((obj:any,index:any) => {
+	    				let subscribe = {'type':'subscribe', 'symbol': obj.symbol };		
+	    				console.log(subscribe);
+	    				subject.send(JSON.stringify(subscribe));
+	    			});
+	    		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
+					};
+	    }
+	    else if(action==1)
+	  	{
+	  			subject.onopen = () => {
+	    			console.log('WebSocket Client Connected');
+	    			
+	    				let subscribe = {'type':'subscribe', 'symbol': symbol };		
+	    				console.log(subscribe);
+	    				subject.send(JSON.stringify(subscribe));
+	    			
+	    		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
+					};		
+	  	}
+	  	else if(action==2)
+	  	{
+	  			subject.onopen = () => {
+	    			console.log('WebSocket Client Connected');
+	    			
+	    				let subscribe = {'type':'unsubscribe', 'symbol': symbol };		
+	    				console.log(subscribe);
+	    				subject.send(JSON.stringify(subscribe));
+	    			
+	    		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
+					};
+	  	}
+	  	else
+	  	{
+	  			subject.onopen = () => {
+	    			console.log('WebSocket Client Connected');
+	    			this.stock_list.forEach((obj:any,index:any) => {
+	    				let subscribe = {'type':'unsubscribe', 'symbol': obj.symbol };		
+	    				console.log(subscribe);
+	    				subject.send(JSON.stringify(subscribe));
+	    			});
+	    			
+	    		//subject.send(JSON.stringify({'type':'subscribe','symbol':'AAPL'}));
+					};		
+	  	}  
+	    		subject.onmessage = (e:any) => {
+	    			console.log(e);
+	      		let temp = JSON.parse(e.data);
+	      		let i = temp["data"][0].s;
+	      		
+	      		this.socket_packets.set(i,temp["data"][0])
+	      		console.log(this.socket_packets);
+	      		//this.socket_packet.append(temp["data"][0]);
+	      	}
+	  
+	      	
   }
 
 
