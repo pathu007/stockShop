@@ -1,5 +1,5 @@
 <div class="container-fluid" *ngIf="selectedStock != null">
-	<h3 style="color: white;">{{selectedStock.description}}</h3>
+	<h3 style="color: white; margin-top: 10px; margin-bottom: 10px;">{{selectedStock.description}}</h3>
 	<mat-tab-group backgroundColor="primary" (selectedIndexChange)="myTabSelectedIndexChange($event)" >
 	  <mat-tab label="1D"> 
 	  	<div id="divChart" class="container-fluid" >
