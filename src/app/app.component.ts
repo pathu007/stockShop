@@ -116,14 +116,18 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
-     	let temp = this._store.retrieve('#List');
-     	this.ManageSockets("",4);
-      this.stock_list = result;
-      this.getFixed();
-      this.ManageSockets("",0);
-      this._store.store('#List', this.stock_list);
+    	if(result != null)
+    	{
+	      console.log('The dialog was closed');
+	      console.log(result);
+	     	let temp = this._store.retrieve('#List');
+	     	this.ManageSockets("",4);
+	      this.stock_list = result;
+	      this.selectForChart(this.stock_list[0]);
+	      this.getFixed();
+	      this.ManageSockets("",0);
+	      this._store.store('#List', this.stock_list);
+	    }  
     });
   }
 
