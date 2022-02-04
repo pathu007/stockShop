@@ -40,14 +40,7 @@ export class AppComponent {
 		else
 		{
 			this._gs.selectStockForChart(this.stock_list[0]);
-			this.stock_list.forEach((obj:any,index:any) => {
-				console.log(obj);
-				this._gs.getPrice(obj.symbol).subscribe(data => {
-																													this.l_p.push(data);
-																													console.log(this.l_p);
-																												})
-
-			})
+			this.getFixed();
 			
 		}
 		
@@ -91,6 +84,18 @@ export class AppComponent {
 			
 	}	
 
+	getFixed()
+	{
+		this.stock_list.forEach((obj:any,index:any) => {
+				console.log(obj);
+				this._gs.getPrice(obj.symbol).subscribe(data => {
+																													this.l_p.push(data);
+																													console.log(this.l_p);
+																												})
+
+			})
+	}
+
 	selectForChart(stock:any) {
 		console.log(stock);
 		this._gs.selectStockForChart(stock);
@@ -99,7 +104,7 @@ export class AppComponent {
 	openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '600px',
-      data: { selectedItems : this.stock_list },
+      data: { selectedItems : this.stock_list, last_price: this.l_p },
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -108,6 +113,7 @@ export class AppComponent {
      	let temp = this._store.retrieve('#List');
      	temp.forEach((obj:any) => this.ManageSockets(obj.symbol,0))
       this.stock_list = result;
+      this.getFixed();
       this.stock_list.forEach((obj:any) => this.ManageSockets(obj.symbol,1))
       this._store.store('#List', this.stock_list);
     });
@@ -161,12 +167,15 @@ export class DialogOverviewExampleDialog {
   selectable: boolean = true;
   selectedItems : any[] = [];
   selectedSB : any = "";
+  l_p : any[] = [];
+  
   constructor(	public _gs: GeneralServicesService, 
   							@Inject(MAT_DIALOG_DATA) public data: any,
     						public dialogRef: MatDialogRef<DialogOverviewExampleDialog>  ) {}
   ngOnInit()
   {
   	this.selectedItems = this.data.selectedItems;
+  	this.l_p = this.data.last_price;
   }
   onNoClick(): void {
     this.dialogRef.close(this.selectedItems);
@@ -204,6 +213,7 @@ export class DialogOverviewExampleDialog {
 
   addStock(stock:any)
   {
+  	this._gs.getPrice(stock.symbol).subscribe(data => this.l_p.push(data))
   	this.selectedItems.push(stock)
   }
 }
