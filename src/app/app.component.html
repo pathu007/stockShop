@@ -42,10 +42,12 @@
         </mat-card>
       </div>
       <div *ngIf="l_p.length == 0" >
-        <h3>It seems your list is empty.</h3>
-        <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-        <mat-icon>add</mat-icon> Select Stocks
-      </button>
+        <mat-card>
+          <h2>It seems your list is empty.</h2>
+          <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+            <mat-icon>add</mat-icon> Select Stocks
+          </button>
+        <mat-card>
       </div>
     </div>
     <div class="col-md-8" style="background-color:#212121;">
