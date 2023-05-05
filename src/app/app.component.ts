@@ -40,12 +40,11 @@ export class AppComponent {
 			this.stock_list = [{description: "APPLE INC", displaySymbol: "AAPL", symbol: "AAPL", type: "Common Stock"}];
 			this.l_p = [];
 		}
-		else
-		{
-			this._gs.selectStockForChart(this.stock_list[0]);
-			this.getFixed();
+		
+		this._gs.selectStockForChart(this.stock_list[0]);
+		this.getFixed();
 			
-		}
+		
 		
 		
     //var subscribe = {'type':'subscribe', 'symbol': "BINANCE:BTCUSDT"};
