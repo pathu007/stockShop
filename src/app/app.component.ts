@@ -39,6 +39,11 @@ export class AppComponent {
 		{
 			this.stock_list = [];
 			this.l_p = [];
+      this.stock_list.push({description: "APPLE INC", displaySymbol: "AAPL", symbol: "AAPL", type: "Common Stock"});
+      this.stock_list.push({description: "META PLATFORMS INC-CLASS A", displaySymbol: "META", symbol: "META", type: "Common Stock"});
+      this.stock_list.push({description: "ALPHABET INC-CL A", displaySymbol: "GOOGL", symbol: "GOOGL", type: "Common Stock"});
+      this._gs.selectStockForChart(this.stock_list[0]);
+		  this.getFixed();
 		}
 		else {
 		  this._gs.selectStockForChart(this.stock_list[0]);
