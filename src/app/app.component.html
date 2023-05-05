@@ -40,12 +40,6 @@
           <span *ngIf="l_p[i].c < l_p[i].pc" style="color: #FF0000; float: right;" >{{ l_p[i].c | number : '1.2-2' }}</span>
           </mat-card-title>  
         </mat-card>
-      </div>
-      <div *ngIf="l_p.length == 0">
-        <mat-card>
-          <h3>It seems you haven't selected stocks yet.</h3>
-          
-        <mat-card>  
       </div>  
     </div>
     <div class="col-md-8" style="background-color:#212121;">
