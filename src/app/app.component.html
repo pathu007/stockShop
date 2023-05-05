@@ -16,7 +16,7 @@
       <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button> -->
-      <span>Track Stocks</span>
+      <span>My App</span>
       <span class="example-spacer"></span>
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="openDialog()">
         <mat-icon>settings</mat-icon>
@@ -29,31 +29,33 @@
   <div class="row" >
     <div class="col-md-4" style="background-color:#424242;">
       <mat-card>
-        <mat-card-title>Your List</mat-card-title>  
+        <mat-card-title>Your List</mat-card-title>
       </mat-card>
-      <div *ngIf="l_p.length != 0" >
-        <mat-card *ngFor="let stock of stock_list; let i = index" id="stocks" >
-          <mat-card-title style="color: white;" (mouseenter)="selectForChart(stock)">{{stock.symbol}}
-          
-          <span *ngIf="l_p[i].c >= l_p[i].pc" style="color: #00FF00; float: right;">
-            {{ l_p[i].c | number : '1.2-2' }}</span>
-          <span *ngIf="l_p[i].c < l_p[i].pc" style="color: #FF0000; float: right;" >{{ l_p[i].c | number : '1.2-2' }}</span>
-          </mat-card-title>  
+      <div *ngIf="l_p.length != 0">
+        <mat-card *ngFor="let stock of stock_list; let i = index" id="stocks">
+          <mat-card-title style="color: white;" (mouseenter)="selectForChart(stock)">
+            {{stock.symbol}}
+
+            <span *ngIf="l_p[i].c >= l_p[i].pc" style="color: #00FF00; float: right;">
+              {{ l_p[i].c | number : '1.2-2' }}
+            </span>
+            <span *ngIf="l_p[i].c < l_p[i].pc" style="color: #FF0000; float: right;">{{ l_p[i].c | number : '1.2-2' }}</span>
+          </mat-card-title>
         </mat-card>
       </div>
-      <div *ngIf="l_p.length == 0" >
+      <div *ngIf="l_p.length == 0">
         <mat-card>
           <h2>It seems your list is empty.</h2>
           <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
             <mat-icon>add</mat-icon> Select Stocks
           </button>
-        <mat-card>
+          <mat-card>
       </div>
     </div>
     <div class="col-md-8" style="background-color:#212121;">
-      <div id="divChart"*ngIf="l_p.length != 0">
+      <div id="divChart">
         <app-charts [selectedStock]="chart_stock"></app-charts>
-      </div>  
+      </div>
     </div>
   </div>   
   
