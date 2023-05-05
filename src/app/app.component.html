@@ -16,7 +16,7 @@
       <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
       </button> -->
-      <span>My App</span>
+      <span>Track Stocks</span>
       <span class="example-spacer"></span>
       <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" (click)="openDialog()">
         <mat-icon>settings</mat-icon>
@@ -41,6 +41,12 @@
           </mat-card-title>  
         </mat-card>
       </div>
+      <div *ngIf="l_p.length == 0">
+        <mat-card>
+          <h3>It seems you haven't selected stocks yet.</h3>
+          
+        <mat-card>  
+      </div>  
     </div>
     <div class="col-md-8" style="background-color:#212121;">
       <div id="divChart">
