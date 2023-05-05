@@ -43,9 +43,12 @@
       </div>
     </div>
     <div class="col-md-8" style="background-color:#212121;">
-      <div id="divChart">
+      <div id="divChart"*ngIf="l_p.length != 0">
         <app-charts [selectedStock]="chart_stock"></app-charts>
       </div>
+      <div *ngIf="l_p.length == 0" >
+        First select the stocks by searching symbols from settings. It'll show up here.
+      </div>  
     </div>
   </div>   
   
