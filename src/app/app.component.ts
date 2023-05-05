@@ -37,13 +37,13 @@ export class AppComponent {
 		this.stock_list = this._store.retrieve('#List');
 		if(this.stock_list == null)
 		{
-			this.stock_list = [{description: "APPLE INC", displaySymbol: "AAPL", symbol: "AAPL", type: "Common Stock"}];
+			this.stock_list = [];
 			this.l_p = [];
 		}
-		
-		this._gs.selectStockForChart(this.stock_list[0]);
-		this.getFixed();
-			
+		else {
+		  this._gs.selectStockForChart(this.stock_list[0]);
+		  this.getFixed();
+    }	
 		
 		
 		
